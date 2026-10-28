@@ -5,7 +5,7 @@ SWI-Prolog assignment. Required files: `Project3/p3.pl` and `Project3/zipcodes.p
 Proposed work split:
 
 - Jack: problems 1, 2, 3, 6, and 9.
-- Teammate 1: problems 4, 5, and 7, plus tests and integration.
-- Teammate 2: problems 8 and 10, plus geographic tests.
+- Grant: problems 4, 5, and 7, plus tests and integration.
+- Farhanul: problems 8 and 10, plus geographic tests.
 
 Implement and test one predicate at a time, then commit. Add all member names and actual contributions at the top of `p3.pl`.
