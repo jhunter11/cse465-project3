@@ -55,6 +55,11 @@ count_occurrences([Head|Tail], Num, Count) :-
 
 % sum_lst([1, 2, 3, 4], Sum). -> Sum = 10
 % sum_lst([10, 10], Sum). -> Sum = 20
+
+sum_lst([], 0).
+sum_lst([H|T], Sum) :-
+    sum_lst(T, Rest),
+    Sum is H + Rest.
 % ------------------------------------------------
 % #5 (Undergraduate/Graduate) (5/5 pts)
 % Using the sum_lst predicate from the previous problem,
@@ -65,6 +70,21 @@ count_occurrences([Head|Tail], Num, Count) :-
  
 % partitionable([1, 2, 3, 4, 10]). -> true. because of [1, 2, 3, 4] and [10]
 % partitionable([2, 1, 1]). -> true. because of [2] and [1, 2]
+
+partitionable(Lst) :-
+    sum_lst(Lst, Total),
+    Total mod 2=:= 0,
+    Half is Total // 2,
+    subset_sum(Lst, Sub),
+    sum_lst(Sub, Half), !.
+
+% Helper to get any subset of the list (Keep or skip each element)
+% AI-assisted for this segment
+subset_sum([], []).
+subset_sum([H|T], [H|Sub]) :- subset_sum(T, Sub).
+subset_sum([_|T], Sub) :- subset_sum(T, Sub).
+
+
 % ------------------------------------------------
 % #6 (Undergraduate/Graduate) (5/5 pts)
 % Using the count_occurrences predicate from Problem 3,
@@ -89,6 +109,19 @@ reverse_unique([Head|Tail], RevLst) :-
 
 % collectEvenDigitCount([3, 12, 9999, 123], NewLst). -> NewLst = [12, 9999] 
 % collectEvenDigitCount([22, 3333, 0, 444444], NewLst). -> NewLst = [22, 3333, 444444] 
+
+num_digits(N, D) :-
+    A is abs(N),
+    number_codes(A, Codes),
+    length(Codes, D).
+
+collectEvenDigitCount([], []).
+collectEvenDigitCount([H|T], [H|R]) :-
+    num_digits(H, D),
+    D mod 2 =:= 0, !,
+    collectEvenDigitCount(T, R).
+collectEvenDigitCount([_|T], R) :-
+    collectEvenDigitCount(T, R).
 
 % ------------------- PART TWO ---------------------
 % Put the 'zipcodes.pl' file, in the same folder as this file.
